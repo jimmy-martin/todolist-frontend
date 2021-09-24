@@ -1,13 +1,77 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>TodoList - Jimmy</title>
 </head>
+
 <body>
-    
+  <div class="mt-2">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="index.html">
+          <h1 class="title">TodoList</h1>
+        </a>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarItems">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarItems" class="navbar-menu">
+        
+        <div class="navbar-end is-flex is-flex-wrap-wrap is-justify-content-center">
+          <div class="navbar-item">
+            <div class="buttons has-addons is-centered">
+              <a class="button is-light">
+                Toutes
+              </a>
+              <a class="button is-light">
+                Complètes
+              </a>
+              <a class="button is-light">
+                Incomplètes
+              </a>
+            </div>
+          </div>
+          <div class="nav-item">
+            <div class="dropdown">
+              <div class="dropdown-trigger">
+                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                  <span>Toutes les catégories</span>
+                  <span class="icon is-small">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                  </span>
+                </button>
+              </div>
+              <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                <div class="dropdown-content">
+                  <a class="dropdown-item">
+                    Courses
+                  </a>
+                  <a class="dropdown-item">
+                    O'clock
+                  </a>
+                  <a class="dropdown-item">
+                    Projet professionnel
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a class="button is-ghost">Voir les archives</a>            
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <script src="assets/js/bulma.js"></script>
 </body>
+
 </html>
