@@ -5,13 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>TodoList - Jimmy</title>
 </head>
 
 <body>
-  <div class="mt-2">
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="section">
+    <nav class="navbar mb-3" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" href="index.html">
           <h1 class="title">TodoList</h1>
@@ -24,8 +27,8 @@
       </div>
 
       <div id="navbarItems" class="navbar-menu">
-        
-        <div class="navbar-end is-flex is-flex-wrap-wrap is-justify-content-center">
+
+        <div class="navbar-end is-flex is-flex-wrap-wrap is-justify-content-center is-align-items-center">
           <div class="navbar-item">
             <div class="buttons has-addons is-centered">
               <a class="button is-light">
@@ -65,11 +68,138 @@
             </div>
           </div>
           <div class="nav-item">
-            <a class="button is-ghost">Voir les archives</a>            
+            <a class="button is-ghost">Voir les archives</a>
           </div>
         </div>
       </div>
     </nav>
+
+    <form class="field is-flex is-flex-wrap-wrap is-align-items-center is-justify-content-center columns my-5">
+      <div class="control mb-1 column is-one-third-desktop">
+        <input class="input is-rounded" type="text" placeholder="Nom de la tâche">
+      </div>
+      <div class="control mx-3 column">
+        <span class="select">
+            <select>
+              <option disabled selected hidden>Choisir une catégorie</option>
+              <option>Courses</option>
+              <option>O'clock</option>
+              <option>Projet professionel</option>
+            </select>
+        </span>
+      </div>
+      <div class="control column">
+        <a class="button is-primary">
+          <span class="icon is-medium">
+            <i class="fas fa-plus"></i>
+          </span>
+          <span>Ajouter</span>
+        </a>
+      </div>
+    </form>
+
+    <div class="box is-flex is-justify-content-space-between is-flex-wrap-wrap is-align-items-center">
+      <p>Acheter du pain</p>
+      <div class="buttons">
+        <button class="button is-info">
+          <span class="icon is-medium">
+            <i class="fas fa-check"></i>
+          </span>
+        </button>
+        <button class="button is-info">
+          <span class="icon is-medium">
+            <i class="fas fa-edit"></i>
+          </span>
+        </button>
+        <button class="button is-info">
+          <span class="icon is-medium">
+            <i class="fas fa-archive"></i>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div class="box is-flex is-justify-content-space-between is-flex-wrap-wrap is-align-items-center">
+      <p>Réviser les objets en PHP</p>
+      <div class="buttons">
+        <button class="button is-info">
+          <span class="icon is-medium">
+            <i class="fas fa-check"></i>
+          </span>
+        </button>
+        <button class="button is-info">
+          <span class="icon is-medium">
+            <i class="fas fa-edit"></i>
+          </span>
+        </button>
+        <button class="button is-info">
+          <span class="icon is-medium">
+            <i class="fas fa-archive"></i>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div class="box is-flex is-justify-content-space-between is-flex-wrap-wrap is-align-items-center">
+      <p>Revoir les évènements en JS</p>
+      <div class="buttons">
+        <button class="button is-info">
+          <span class="icon is-medium">
+            <i class="fas fa-backward"></i>
+          </span>
+        </button>
+        <button class="button is-info">
+          <span class="icon is-medium">
+            <i class="fas fa-edit"></i>
+          </span>
+        </button>
+        <button class="button is-info">
+          <span class="icon is-medium">
+            <i class="fas fa-trash"></i>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div class="box is-flex is-justify-content-space-between is-flex-wrap-wrap is-align-items-center">
+      <form action="">
+        <div class="field mb-1">
+          <div class="control">
+            <input class="input" type="text" value="Apprendre à apprendre">
+          </div>
+        </div>
+      </form>
+      <div class="buttons">
+        <button class="button is-info">
+          <span class="icon is-medium">
+            <i class="fas fa-check"></i>
+          </span>
+        </button>
+        <button class="button is-info">
+          <span class="icon is-medium">
+            <i class="fas fa-edit"></i>
+          </span>
+        </button>
+        <button class="button is-info">
+          <span class="icon is-medium">
+            <i class="fas fa-trash"></i>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div class="box is-flex is-justify-content-space-between is-flex-wrap-wrap is-align-items-center">
+      <p>Exemple de tâche archivée</p>
+      <div class="buttons">
+        <button class="button is-info">
+          <span class="icon is-medium">
+            <i class="fas fa-undo"></i>
+          </span>
+        </button>
+        <button class="button is-info">
+          <span class="icon is-medium">
+            <i class="fas fa-trash"></i>
+          </span>
+        </button>
+      </div>
+    </div>
+
   </div>
   <script src="assets/js/bulma.js"></script>
 </body>
