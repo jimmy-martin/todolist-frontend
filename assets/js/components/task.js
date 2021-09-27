@@ -25,6 +25,22 @@ const task = {
     const taskElementButtonValidate = taskElement.querySelector('.task__button--validate');
     taskElementButtonValidate.addEventListener('click', task.handleCompleteTask);
 
+    // Bouton tache incomplète
+    const taskElementButtonIncomplete = taskElement.querySelector('.task__button--incomplete');
+    taskElementButtonIncomplete.addEventListener('click', task.handleIncompleteTask);
+
+    // Bouton tache archive
+    const taskElementButtonArchive = taskElement.querySelector('.task__button--archive');
+    taskElementButtonArchive.addEventListener('click', task.handleArchiveTask);
+
+    // Bouton tache desarchive
+    const taskElementButtonDesarchive = taskElement.querySelector('.task__button--desarchive');
+    taskElementButtonDesarchive.addEventListener('click', task.handleDesarchiveTask);
+
+    // Bouton tache delete
+    const taskElementButtonDelete = taskElement.querySelector('.task__button--delete');
+    taskElementButtonDelete.addEventListener('click', task.handleDeleteTask);
+
   },
 
   handleEnableTaskTitleEditMode: function (evt) {
@@ -67,13 +83,48 @@ const task = {
   },
 
   handleCompleteTask: function (evt){
-    console.log('YEEEEESSSSS');
 
     const taskValidateButton = evt.currentTarget;
     const taskElement = taskValidateButton.closest('.task');
 
     taskElement.classList.remove('task--todo');
     taskElement.classList.add('task--complete');
+  },
+
+  handleIncompleteTask: function (evt){
+
+    const taskIncompleteButton = evt.currentTarget;
+    const taskElement = taskIncompleteButton.closest('.task');
+
+    taskElement.classList.remove('task--complete');
+    taskElement.classList.add('task--todo');
+  },
+
+  handleArchiveTask: function (evt){
+
+    const taskArchiveButton = evt.currentTarget;
+    const taskElement = taskArchiveButton.closest('.task');
+
+    taskElement.classList.remove('task--todo', 'task--complete');
+    taskElement.classList.add('task--archive');
+  },
+
+  handleDesarchiveTask: function(evt){
+
+    const taskDesarchiveButton = evt.currentTarget;
+    const taskElement = taskDesarchiveButton.closest('.task');
+
+    taskElement.classList.remove('task--archive');
+    taskElement.classList.add('task--todo');
+  },
+
+  handleDeleteTask: function(evt){
+    
+    const taskDeleteButton = evt.currentTarget;
+    const taskElement = taskDeleteButton.closest('.task');
+
+    const allTasksElement = document.querySelector('.tasks');
+    allTasksElement.removeChild(taskElement);
   }
 
 };
