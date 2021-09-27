@@ -13,8 +13,7 @@ const newTaskForm = {
     const todoName = formElement.querySelector('.task__title-field').value;
 
     if(todoName === ''){
-      window.alert('Votre champ est vide !');
-      formElement.querySelector('.task__title-field').focus();
+      window.alert('Votre champ est vide !');      
     } else {
       const taskTemplateElement = document.getElementById('taskTemplate');
   
@@ -32,6 +31,8 @@ const newTaskForm = {
       // je vide mon input
       formElement.querySelector('.task__title-field').value = '';
     }
+    
+    formElement.querySelector('.task__title-field').focus();
     
   }
 
