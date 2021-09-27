@@ -1,7 +1,7 @@
 const task = {
 
   /**
-   * Methode de gérer les évènements d'une tâche donnée (taskElement)
+   * Methode permettant de gérer les évènements d'une tâche donnée (taskElement)
    * @param {HtmlElement} taskElement 
    */
   bindSingleTaskEvents: function (taskElement) {
@@ -20,6 +20,10 @@ const task = {
     // Bouton d'édition
     const taskElementButtonModify = taskElement.querySelector('.task__button--modify');
     taskElementButtonModify.addEventListener('click', task.handleEnableTaskTitleEditMode);
+
+    // Bouton tache complète
+    const taskElementButtonValidate = taskElement.querySelector('.task__button--validate');
+    taskElementButtonValidate.addEventListener('click', task.handleCompleteTask);
 
   },
 
@@ -60,6 +64,16 @@ const task = {
     if (evt.key === 'Enter') {
       task.handleValidateNewTaskTitle(evt);
     }
+  },
+
+  handleCompleteTask: function (evt){
+    console.log('YEEEEESSSSS');
+
+    const taskValidateButton = evt.currentTarget;
+    const taskElement = taskValidateButton.closest('.task');
+
+    taskElement.classList.remove('task--todo');
+    taskElement.classList.add('task--complete');
   }
 
 };

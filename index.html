@@ -20,6 +20,7 @@
     seulement à la fin 
     On n'a donc plus besoin de placer la balise script avant la balise fermante du body 
   -->
+  <script src="assets/js/components/newTaskForm.js" defer></script>
   <script src="assets/js/components/tasksList.js" defer></script>
   <script src="assets/js/components/task.js" defer></script>
   <script src="assets/js/app.js" defer></script>
@@ -319,6 +320,55 @@
       </div>
     </main>
   </div>
+  <template id="taskTemplate">
+    <div class="task task--todo" data-category="O'clock">
+      <div class="task__content">
+        <div class="task__title">
+          <p class="task__title-label"></p>
+          <input class="task__title-field input" type="text" value=""
+            placeholder="Titre de la tâche" name="title" />
+        </div>
+        <div class="task__category">
+          <p>O'clock</p>
+        </div>
+        <div class="task__buttons">
+          <button class="task__button task__button--incomplete button is-success is-small">
+            <span class="icon is-small">
+              <i class="fa fa-step-backward"></i>
+            </span>
+          </button>
+          <button class="task__button task__button--desarchive button is-success is-small">
+            <span class="icon is-small">
+              <i class="fa fa-undo"></i>
+            </span>
+          </button>
+          <button class="task__button task__button--validate button is-success is-small">
+            <span class="icon is-small">
+              <i class="fa fa-check-square-o"></i>
+            </span>
+          </button>
+          <button class="task__button task__button--modify button is-warning is-small">
+            <span class="icon is-small">
+              <i class="fa fa-pencil-square-o"></i>
+            </span>
+          </button>
+          <button class="task__button task__button--archive button is-danger is-small">
+            <span class="icon is-small">
+              <i class="fa fa-archive"></i>
+            </span>
+          </button>
+          <button class="task__button task__button--delete button is-danger is-small">
+            <span class="icon is-small">
+              <i class="fa fa-trash"></i>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-bar__level" style="width:30%"></div>
+      </div>
+    </div>
+  </template>
 </body>
 
 </html>

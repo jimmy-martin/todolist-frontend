@@ -1,7 +1,7 @@
 const tasksList = {
 
   /**
-   * Méthode permettant de gérer l'évènement click sur toutes les taches de notre todolist
+   * Méthode permettant d'appliquer les évènements sur chaque tache de notre liste
    */
   bindAllTasksEvents: function () {
     // On recupere la listes de toutes les taches
