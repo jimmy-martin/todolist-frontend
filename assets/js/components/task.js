@@ -101,12 +101,14 @@ const task = {
   },
 
   handleArchiveTask: function (evt){
+    if(window.confirm('Voulez-vous vraiment archiver cette tâche ?')){
 
-    const taskArchiveButton = evt.currentTarget;
-    const taskElement = taskArchiveButton.closest('.task');
-
-    taskElement.classList.remove('task--todo', 'task--complete');
-    taskElement.classList.add('task--archive');
+      const taskArchiveButton = evt.currentTarget;
+      const taskElement = taskArchiveButton.closest('.task');
+  
+      taskElement.classList.remove('task--todo', 'task--complete');
+      taskElement.classList.add('task--archive');
+    }
   },
 
   handleDesarchiveTask: function(evt){
