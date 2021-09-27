@@ -12,8 +12,15 @@ const newTaskForm = {
     
     const todoName = formElement.querySelector('.task__title-field').value;
 
-    if(todoName === ''){
-      window.alert('Votre champ est vide !');      
+    // ---------------------------------
+    // TEST (tentative de récupération de la valeur du select)
+    // ---------------------------------
+    const todoCategoryElement = formElement.querySelector('.task__category > .select > select');
+    console.log(todoCategoryElement.options[todoCategoryElement.selectedIndex].value);
+    const todoCategory = todoCategoryElement.options[todoCategoryElement.selectedIndex].value;
+
+    if(todoName === '' || todoCategory == 'Choisir une catégorie'){
+      window.alert('Au moins un des champs est vide !');      
     } else {
       const taskTemplateElement = document.getElementById('taskTemplate');
   
@@ -21,6 +28,9 @@ const newTaskForm = {
   
       taskElement.querySelector('.task__title-label').textContent = todoName;
       taskElement.querySelector('.task__title-field').value = todoName;
+      taskElement.querySelector('.task__category > p').textContent = todoCategory;
+      taskElement.querySelector('.task').dataset.category = todoCategory;
+
   
       document.querySelector('.tasks').appendChild(taskElement);
   
@@ -33,6 +43,8 @@ const newTaskForm = {
     }
     
     formElement.querySelector('.task__title-field').focus();
+
+    
     
   }
 
