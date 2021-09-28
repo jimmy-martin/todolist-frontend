@@ -143,13 +143,15 @@ const task = {
       taskElement.querySelector('.task__category p').textContent = newTaskCategory;
       taskElement.dataset.category = newTaskCategory;
 
+      // Pour que ma tache puisse bénéficer des ecouteurs d'evenements nécessaires
+      // je fais appel à la fonction bindSingleTaskEvents pour qu'il puisse bénéficier des ecouteurs d'evenements des taches
+      //! JavaScript nous impose de le faire avant d'ajouter notre noeud au DOM, sinon il ne reconnait plus l'element auquel on souhaite ajouter des eventListener
+      task.bindSingleTaskEvents(taskElement);
+
       // plus tard on utilisera une methode de taskList pour ajouter la nouvelle tache
       // tasksList.addNewTask(taskElement)
       document.querySelector('.tasks').prepend(taskElement);
 
-      // Pour que ma tache puisse bénéficer des ecouteurs d'evenements nécessaires
-      // je fait appel à la fonction bindAllTasksEvents pour qu'il puisse bénéficier des ecouteurs d'evenements des taches
-      tasksList.bindAllTasksEvents();
       return true;
     }
     return false;
