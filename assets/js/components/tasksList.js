@@ -47,7 +47,7 @@ const tasksList = {
           taskElement.querySelector('.task__title-field').value = apiTask.title;
           taskElement.querySelector('.task__category p').textContent = apiTask.category.name;
           taskElement.dataset.category = apiTask.category.name;
-          console.log(taskElement.querySelector('.progress-bar__level').style.width);
+          taskElement.querySelector('.progress-bar__level').style.width = apiTask.completion + '%';
 
           task.bindSingleTaskEvents(taskElement);
 
