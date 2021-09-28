@@ -9,6 +9,7 @@ const app = {
         // initialisation des composants
         tasksList.init();
         newTaskForm.init();
+        categoriesList.init();
     }
 };
 
