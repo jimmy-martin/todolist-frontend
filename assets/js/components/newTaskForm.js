@@ -12,7 +12,7 @@ const newTaskForm = {
 
     const todoName = formElement.querySelector('.task__title-field').value;
 
-    const todoCategory = formElement.querySelector('.task__category > .select > select').value;
+    const todoCategory = formElement.querySelector('.task__category  select').value;
 
     // on va utiliser plutôt une méthode qui se trouve dans task au lieu de coder ici
     const result = task.createNewTask(todoName, todoCategory);

@@ -33,7 +33,6 @@ const categoriesList = {
                 const selectForm = categoriesList.createSelect(data, 'Choisir une catégorie');
                 document.querySelector('.task__category .select').append(selectForm);
 
-
             });
 
     },
@@ -41,16 +40,16 @@ const categoriesList = {
     /**
      * Méthode permettant de créer un select
      * 
-     * @param {JSONResponse} data datas from api
-     * @param {string} optionLabel name of the default option
-     * @param {string} selectClass class of the select
-     * @returns {HTML}selectElement
+     * @param {Array} data datas from api
+     * @param {String} optionLabel name of the default option
+     * @param {String} selectClass class of the select
+     * @returns {HTMLElement} selectElement
      */
     createSelect: function (data, optionLabel, selectClass = '') {
 
         const selectElement = document.createElement('select');
 
-        if(selectClass !== ''){
+        if (selectClass !== '') {
             selectElement.classList.add(selectClass);
         }
 

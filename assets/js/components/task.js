@@ -129,7 +129,7 @@ const task = {
     allTasksElement.removeChild(taskElement);
   },
 
-  createNewTask: function (newTaskName, newTaskCategory) {
+  createNewTask: function (newTaskName, newTaskCategory, newTaskStatus = 1, newTaskCompletion = 0) {
 
     if (newTaskName === '' || newTaskCategory === 'Choisir une catégorie') {
       window.alert('Au moins un des champs n\'est pas valide. Pensez à renseigner un nom ET une catégorie.');
@@ -142,6 +142,13 @@ const task = {
       taskElement.querySelector('.task__title-field').value = newTaskName;
       taskElement.querySelector('.task__category p').textContent = newTaskCategory;
       taskElement.dataset.category = newTaskCategory;
+      taskElement.querySelector('.progress-bar__level').style.width = newTaskCompletion + '%';
+
+      if (newTaskStatus == 2) {
+        taskElement.classList.add('task--archive');
+      } else if (newTaskCompletion == 100) {
+        taskElement.classList.add('task--complete');
+      }
 
       // Pour que ma tache puisse bénéficer des ecouteurs d'evenements nécessaires
       // je fais appel à la fonction bindSingleTaskEvents pour qu'il puisse bénéficier des ecouteurs d'evenements des taches

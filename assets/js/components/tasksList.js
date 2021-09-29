@@ -1,6 +1,6 @@
 const tasksList = {
 
-  init: function (evt) {
+  init: function () {
     tasksList.bindAllTasksEvents();
     tasksList.loadTasksFromAPI();
   },
@@ -34,24 +34,11 @@ const tasksList = {
       .then(function (response) {
         return response.json();
       })
-      .then(function (data) {        
-        
-        for (let apiTask of data) {
+      .then(function (tasks) {
 
-          const taskTemplateElement = document.getElementById('taskTemplate').content.cloneNode(true);
+        for (let apiTask of tasks) {
 
-          const taskElement = taskTemplateElement.querySelector('.task');
-          // console.log(apiTask);
-          
-          taskElement.querySelector('.task__title-label').textContent = apiTask.title;
-          taskElement.querySelector('.task__title-field').value = apiTask.title;
-          taskElement.querySelector('.task__category p').textContent = apiTask.category.name;
-          taskElement.dataset.category = apiTask.category.name;
-          taskElement.querySelector('.progress-bar__level').style.width = apiTask.completion + '%';
-
-          task.bindSingleTaskEvents(taskElement);
-
-          document.querySelector('.tasks').appendChild(taskElement);
+          task.createNewTask(apiTask.title, apiTask.category.name, apiTask.status , apiTask.completion);
 
         }
 
