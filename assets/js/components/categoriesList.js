@@ -3,6 +3,10 @@ const categoriesList = {
         categoriesList.loadCategoriesFromAPI();
     },
 
+    /**
+     * Récupérer les catégories depuis une API pour dynamiser
+     * l'affichage de la liste des catégories
+     */
     loadCategoriesFromAPI: function () {
         // console.log('Je peux passer à la suite');
 
@@ -21,20 +25,48 @@ const categoriesList = {
             })
             // on recupere le resultat et on le met en parametre d'une autre fonction
             .then(function (data) {
-                // console.log(data);
+                // console.log(data);                
 
-                // je parcours l'ensemble de mes categories retournées
-                let categoryTpl = '';
-                for (let category of data) {
-                    // je les place 1 par 1 dans une balise option
-                    categoryTpl += '<option>' + category.name + '</option>';
-                }
+                const selectFilter = categoriesList.createSelect(data, 'Toutes les catégories', 'filters__choice');
+                document.querySelector('.filters__task--category').append(selectFilter);
 
-                // j'ajoute ma liste d'options dans mes select
-                document.querySelector('.filters__task--category .filters__choice').innerHTML = categoryTpl;
-                document.querySelector('.task__category select').innerHTML = categoryTpl;
+                const selectForm = categoriesList.createSelect(data, 'Choisir une catégorie');
+                document.querySelector('.task__category .select').append(selectForm);
+
+
             });
 
+    },
 
+    /**
+     * Méthode permettant de créer un select
+     * 
+     * @param {JSONResponse} data datas from api
+     * @param {string} optionLabel name of the default option
+     * @param {string} selectClass class of the select
+     * @returns {HTML}selectElement
+     */
+    createSelect: function (data, optionLabel, selectClass = '') {
+
+        const selectElement = document.createElement('select');
+
+        if(selectClass !== ''){
+            selectElement.classList.add(selectClass);
+        }
+
+        const optionDefault = document.createElement('option');
+        optionDefault.textContent = optionLabel;
+
+        // On rajoute l'option par défaut à l'élement select
+        selectElement.append(optionDefault);
+
+        // pour chaque catégorie, créer un élément <option> et l'ajouter comme enfant du <select>
+        for (let category of data) {
+            const optionChild = document.createElement('option');
+            optionChild.textContent = category.name;
+            selectElement.append(optionChild);
+        }
+
+        return selectElement;
     }
 }

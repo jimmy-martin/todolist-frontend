@@ -41,7 +41,7 @@ const tasksList = {
           const taskTemplateElement = document.getElementById('taskTemplate').content.cloneNode(true);
 
           const taskElement = taskTemplateElement.querySelector('.task');
-          console.log(apiTask);
+          // console.log(apiTask);
           
           taskElement.querySelector('.task__title-label').textContent = apiTask.title;
           taskElement.querySelector('.task__title-field').value = apiTask.title;
