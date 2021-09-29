@@ -6,9 +6,10 @@ const app = {
 
     // Méthodes
     init: function () {
-        console.log('Coucou');
-
-        tasksList.bindAllTasksEvents();
+        // initialisation des composants
+        tasksList.init();
+        newTaskForm.init();
+        categoriesList.init();
     }
 };
 

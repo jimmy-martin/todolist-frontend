@@ -1,7 +1,7 @@
 const task = {
 
   /**
-   * Methode de gérer les évènements d'une tâche donnée (taskElement)
+   * Methode permettant de gérer les évènements d'une tâche donnée (taskElement)
    * @param {HtmlElement} taskElement 
    */
   bindSingleTaskEvents: function (taskElement) {
@@ -20,6 +20,26 @@ const task = {
     // Bouton d'édition
     const taskElementButtonModify = taskElement.querySelector('.task__button--modify');
     taskElementButtonModify.addEventListener('click', task.handleEnableTaskTitleEditMode);
+
+    // Bouton tache complète
+    const taskElementButtonComplete = taskElement.querySelector('.task__button--validate');
+    taskElementButtonComplete.addEventListener('click', task.handleCompleteTask);
+
+    // Bouton tache incomplète
+    const taskElementButtonIncomplete = taskElement.querySelector('.task__button--incomplete');
+    taskElementButtonIncomplete.addEventListener('click', task.handleIncompleteTask);
+
+    // Bouton tache archive
+    const taskElementButtonArchive = taskElement.querySelector('.task__button--archive');
+    taskElementButtonArchive.addEventListener('click', task.handleArchiveTask);
+
+    // Bouton tache desarchive
+    const taskElementButtonDesarchive = taskElement.querySelector('.task__button--desarchive');
+    taskElementButtonDesarchive.addEventListener('click', task.handleDesarchiveTask);
+
+    // Bouton tache delete
+    const taskElementButtonDelete = taskElement.querySelector('.task__button--delete');
+    taskElementButtonDelete.addEventListener('click', task.handleDeleteTask);
 
   },
 
@@ -60,6 +80,88 @@ const task = {
     if (evt.key === 'Enter') {
       task.handleValidateNewTaskTitle(evt);
     }
+  },
+
+  handleCompleteTask: function (evt) {
+
+    const taskCompleteButton = evt.currentTarget;
+    const taskElement = taskCompleteButton.closest('.task');
+
+    taskElement.classList.remove('task--todo');
+    taskElement.classList.add('task--complete');
+  },
+
+  handleIncompleteTask: function (evt) {
+
+    const taskIncompleteButton = evt.currentTarget;
+    const taskElement = taskIncompleteButton.closest('.task');
+
+    taskElement.classList.remove('task--complete');
+    taskElement.classList.add('task--todo');
+  },
+
+  handleArchiveTask: function (evt) {
+    if (window.confirm('Voulez-vous vraiment archiver cette tâche ?')) {
+
+      const taskArchiveButton = evt.currentTarget;
+      const taskElement = taskArchiveButton.closest('.task');
+
+      taskElement.classList.remove('task--todo', 'task--complete');
+      taskElement.classList.add('task--archive');
+    }
+  },
+
+  handleDesarchiveTask: function (evt) {
+
+    const taskDesarchiveButton = evt.currentTarget;
+    const taskElement = taskDesarchiveButton.closest('.task');
+
+    taskElement.classList.remove('task--archive');
+    taskElement.classList.add('task--todo');
+  },
+
+  handleDeleteTask: function (evt) {
+
+    const taskDeleteButton = evt.currentTarget;
+    const taskElement = taskDeleteButton.closest('.task');
+
+    const allTasksElement = document.querySelector('.tasks');
+    allTasksElement.removeChild(taskElement);
+  },
+
+  createNewTask: function (newTaskName, newTaskCategory, newTaskStatus = 1, newTaskCompletion = 0) {
+
+    if (newTaskName === '' || newTaskCategory === 'Choisir une catégorie') {
+      window.alert('Au moins un des champs n\'est pas valide. Pensez à renseigner un nom ET une catégorie.');
+    } else {
+      const taskTemplateElement = document.getElementById('taskTemplate').content.cloneNode(true);
+
+      const taskElement = taskTemplateElement.querySelector('.task');
+
+      taskElement.querySelector('.task__title-label').textContent = newTaskName;
+      taskElement.querySelector('.task__title-field').value = newTaskName;
+      taskElement.querySelector('.task__category p').textContent = newTaskCategory;
+      taskElement.dataset.category = newTaskCategory;
+      taskElement.querySelector('.progress-bar__level').style.width = newTaskCompletion + '%';
+
+      if (newTaskStatus == 2) {
+        taskElement.classList.add('task--archive');
+      } else if (newTaskCompletion == 100) {
+        taskElement.classList.add('task--complete');
+      }
+
+      // Pour que ma tache puisse bénéficer des ecouteurs d'evenements nécessaires
+      // je fais appel à la fonction bindSingleTaskEvents pour qu'il puisse bénéficier des ecouteurs d'evenements des taches
+      //! JavaScript nous impose de le faire avant d'ajouter notre noeud au DOM, sinon il ne reconnait plus l'element auquel on souhaite ajouter des eventListener
+      task.bindSingleTaskEvents(taskElement);
+
+      // plus tard on utilisera une methode de taskList pour ajouter la nouvelle tache
+      // tasksList.addNewTask(taskElement)
+      document.querySelector('.tasks').prepend(taskElement);
+
+      return true;
+    }
+    return false;
   }
 
 };
