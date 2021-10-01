@@ -63,17 +63,46 @@ const task = {
   handleValidateNewTaskTitle: function (evt) {
     const taskElementInput = evt.currentTarget;
 
+    const taskElement = taskElementInput.closest('.task');
+    const taskId = taskElement.dataset.id;
+    
+
     // on recupere la nouvelle valeur de la tache
     const newTaskTitle = taskElementInput.value;
 
-    // je recupere le paragraphe qui se trouve juste au dessus de mon input dans mon HTML
-    // previousElementSibling me retourne l'element du DOM precedent mon element courant
-    const taskTitleElement = taskElementInput.previousElementSibling;
-    taskTitleElement.textContent = newTaskTitle;
+    const data = {
+      title: newTaskTitle
+    }
 
-    // enfin je retir la classe task--edit
-    const taskElement = taskElementInput.closest('.task');
-    taskElement.classList.remove('task--edit');
+    const httpHeaders = new Headers();
+    httpHeaders.append("Content-Type", "application/json");
+
+    const fetchOptions = {
+      method: 'PATCH',
+      mode: 'cors',
+      cache: 'no-cache',
+      headers: httpHeaders,
+      body: JSON.stringify(data)
+    };
+
+    fetch(app.apiRootUrl + '/tasks/' + taskId, fetchOptions)
+      .then(
+        function (response) {
+          if (response.status == 200) {
+            // je recupere le paragraphe qui se trouve juste au dessus de mon input dans mon HTML
+            // previousElementSibling me retourne l'element du DOM precedent mon element courant
+            const taskTitleElement = taskElementInput.previousElementSibling;
+            taskTitleElement.textContent = newTaskTitle;
+
+            // enfin je retire la classe task--edit
+            const taskElement = taskElementInput.closest('.task');
+            taskElement.classList.remove('task--edit');
+            console.log('Nom de la tâche modifié !');
+          } else {
+            alert('Une erreur est survenue !');
+          }
+        }
+      );
   },
 
   handleValideNewTaskTitleOnEnterKey: function (evt) {
@@ -112,6 +141,7 @@ const task = {
           if (response.status == 200) {
             taskElement.classList.remove('task--todo');
             taskElement.classList.add('task--complete');
+            console.log('Tâche complète !');
           } else {
             alert('Une erreur est survenue !');
           }
