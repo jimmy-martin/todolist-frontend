@@ -39,11 +39,24 @@ const tasksList = {
         for (let apiTask of tasks) {
 
           task.createNewTask(apiTask.id, apiTask.title, apiTask.category.name, apiTask.status, apiTask.completion);
-
         }
+        
+        tasksList.hideArchivedTask();
 
       });
 
+
+  },
+
+  hideArchivedTask: function () {
+    const allTasksElement = document.querySelectorAll('.tasks .task');
+
+    for (const task of allTasksElement) {
+      // console.log(task);
+      if(task.classList.contains('task--archive')){
+        task.style.display = 'none';
+      }
+    }
   }
 
 };
