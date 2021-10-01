@@ -63,6 +63,7 @@ const categoriesList = {
         for (let category of data) {
             const optionChild = document.createElement('option');
             optionChild.textContent = category.name;
+            optionChild.value = category.id;
             selectElement.append(optionChild);
         }
 
