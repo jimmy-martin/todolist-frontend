@@ -3,6 +3,7 @@
 const app = {
 
     // Propriétés
+    apiRootUrl: "http://localhost:8080",
 
     // Méthodes
     init: function () {

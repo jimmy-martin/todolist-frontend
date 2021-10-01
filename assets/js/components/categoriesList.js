@@ -18,7 +18,7 @@ const categoriesList = {
         };
 
         // j'execute ma requete 
-        fetch('https://benoclock.github.io/S07-todolist/categories.json', fetchOptions)
+        fetch(app.apiRootUrl + '/categories', fetchOptions)
             // puis je convertis la reponse renvoyée (renvoyée au format JSON) par mon API en objet JavaScript
             .then(function (response) {
                 return response.json();

@@ -30,7 +30,7 @@ const tasksList = {
       cache: 'no-cache'
     };
 
-    fetch('https://benoclock.github.io/S07-todolist/tasks.json', fetchOptions)
+    fetch(app.apiRootUrl + '/tasks', fetchOptions)
       .then(function (response) {
         return response.json();
       })
@@ -38,7 +38,7 @@ const tasksList = {
 
         for (let apiTask of tasks) {
 
-          task.createNewTask(apiTask.title, apiTask.category.name, apiTask.status , apiTask.completion);
+          task.createNewTask(apiTask.title, apiTask.category.name, apiTask.status, apiTask.completion);
 
         }
 
