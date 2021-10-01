@@ -12,9 +12,12 @@ const newTaskForm = {
 
     const todoName = formElement.querySelector('.task__title-field').value;
 
-    const todoCategory = formElement.querySelector('.task__category  select').value;
+    const selectElement = formElement.querySelector('.task__category select');
 
-    const todoCategoryName = formElement.querySelector('.task__category  select option').textContent;
+    const todoCategory = selectElement.value;
+
+    // Pour recuperer le texte meme de l'option selectionnée et non plus la valeur de l'option qui se trouve dans l'attribut "value" du select
+    const todoCategoryName = selectElement.options[selectElement.selectedIndex].text;
 
     const data = {
       title: todoName,
@@ -43,7 +46,7 @@ const newTaskForm = {
           }
         })
       .then(function (apiTask) {
-        console.log(apiTask);
+        // console.log(apiTask);
         const result = task.createNewTask(apiTask.id, todoName, todoCategoryName);
         if (result) {
           // je vide mon input
@@ -51,8 +54,6 @@ const newTaskForm = {
         }
         formElement.querySelector('.task__title-field').focus();
       });
-
-
 
   }
 
