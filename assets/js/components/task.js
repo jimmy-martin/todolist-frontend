@@ -86,9 +86,37 @@ const task = {
 
     const taskCompleteButton = evt.currentTarget;
     const taskElement = taskCompleteButton.closest('.task');
+    const taskId = taskElement.dataset.id;
 
-    taskElement.classList.remove('task--todo');
-    taskElement.classList.add('task--complete');
+    const data = {
+      completion: 100
+    }
+    // On prépare les entêtes HTTP (headers) de la requête
+    // afin de spécifier que les données sont en JSON
+    const httpHeaders = new Headers();
+    httpHeaders.append("Content-Type", "application/json");
+
+    const fetchOptions = {
+      method: 'PATCH',
+      mode: 'cors',
+      cache: 'no-cache',
+      // On ajoute les headers dans les options
+      headers: httpHeaders,
+      // On ajoute les données, encodées en JSON, dans le corps de la requête
+      body: JSON.stringify(data)
+    };
+
+    fetch(app.apiRootUrl + '/tasks/' + taskId, fetchOptions)
+      .then(
+        function (response) {
+          if (response.status == 200) {
+            taskElement.classList.remove('task--todo');
+            taskElement.classList.add('task--complete');
+          } else {
+            alert('Une erreur est survenue !');
+          }
+        }
+      );
   },
 
   handleIncompleteTask: function (evt) {
@@ -129,7 +157,7 @@ const task = {
     allTasksElement.removeChild(taskElement);
   },
 
-  createNewTask: function (newTaskName, newTaskCategory, newTaskStatus = 1, newTaskCompletion = 0) {
+  createNewTask: function (newTaskId, newTaskName, newTaskCategory, newTaskStatus = 1, newTaskCompletion = 0) {
 
     if (newTaskName === '' || newTaskCategory === 'Choisir une catégorie') {
       window.alert('Au moins un des champs n\'est pas valide. Pensez à renseigner un nom ET une catégorie.');
@@ -137,6 +165,7 @@ const task = {
       const taskTemplateElement = document.getElementById('taskTemplate').content.cloneNode(true);
 
       const taskElement = taskTemplateElement.querySelector('.task');
+      taskElement.dataset.id = newTaskId;
 
       taskElement.querySelector('.task__title-label').textContent = newTaskName;
       taskElement.querySelector('.task__title-field').value = newTaskName;

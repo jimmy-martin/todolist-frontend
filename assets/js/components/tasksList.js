@@ -38,7 +38,7 @@ const tasksList = {
 
         for (let apiTask of tasks) {
 
-          task.createNewTask(apiTask.title, apiTask.category.name, apiTask.status, apiTask.completion);
+          task.createNewTask(apiTask.id, apiTask.title, apiTask.category.name, apiTask.status, apiTask.completion);
 
         }
 
