@@ -123,9 +123,37 @@ const task = {
 
     const taskIncompleteButton = evt.currentTarget;
     const taskElement = taskIncompleteButton.closest('.task');
+    const taskId = taskElement.dataset.id;
 
-    taskElement.classList.remove('task--complete');
-    taskElement.classList.add('task--todo');
+    const data = {
+      completion: 0
+    }
+    // On prépare les entêtes HTTP (headers) de la requête
+    // afin de spécifier que les données sont en JSON
+    const httpHeaders = new Headers();
+    httpHeaders.append("Content-Type", "application/json");
+
+    const fetchOptions = {
+      method: 'PATCH',
+      mode: 'cors',
+      cache: 'no-cache',
+      // On ajoute les headers dans les options
+      headers: httpHeaders,
+      // On ajoute les données, encodées en JSON, dans le corps de la requête
+      body: JSON.stringify(data)
+    };
+
+    fetch(app.apiRootUrl + '/tasks/' + taskId, fetchOptions)
+      .then(
+        function (response) {
+          if (response.status == 200) {
+            taskElement.classList.remove('task--complete');
+            taskElement.classList.add('task--todo');
+          } else {
+            alert('Une erreur est survenue !');
+          }
+        }
+      );
   },
 
   handleArchiveTask: function (evt) {
