@@ -65,7 +65,7 @@ const task = {
 
     const taskElement = taskElementInput.closest('.task');
     const taskId = taskElement.dataset.id;
-    
+
 
     // on recupere la nouvelle valeur de la tache
     const newTaskTitle = taskElementInput.value;
@@ -191,9 +191,37 @@ const task = {
 
       const taskArchiveButton = evt.currentTarget;
       const taskElement = taskArchiveButton.closest('.task');
+      const taskId = taskElement.dataset.id;
 
-      taskElement.classList.remove('task--todo', 'task--complete');
-      taskElement.classList.add('task--archive');
+      const data = {
+        status: 2
+      }
+
+      const httpHeaders = new Headers();
+      httpHeaders.append("Content-Type", "application/json");
+
+      const fetchOptions = {
+        method: 'PATCH',
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: httpHeaders,
+        body: JSON.stringify(data)
+      };
+
+      fetch(app.apiRootUrl + '/tasks/' + taskId, fetchOptions)
+        .then(
+          function (response) {
+            if (response.status == 200) {
+              taskElement.classList.remove('task--todo', 'task--complete');
+              taskElement.classList.add('task--archive');
+              console.log('La tâche est archivée !');
+            } else {
+              alert('Une erreur est survenue !');
+            }
+          }
+        );      
+
+     
     }
   },
 
