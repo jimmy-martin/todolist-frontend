@@ -47,7 +47,8 @@ const newTaskForm = {
         })
       .then(function (apiTask) {
         // console.log(apiTask);
-        const result = task.createNewTask(apiTask.id, todoName, todoCategoryName);
+        const result = task.createNewTask(apiTask.id, apiTask.title, todoCategoryName);
+
         if (result) {
           // je vide mon input
           formElement.querySelector('.task__title-field').value = '';
