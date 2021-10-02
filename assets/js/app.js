@@ -11,6 +11,7 @@ const app = {
         tasksList.init();
         newTaskForm.init();
         categoriesList.init();
+        filters.init();
     }
 };
 
