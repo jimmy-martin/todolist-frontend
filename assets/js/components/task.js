@@ -219,9 +219,7 @@ const task = {
               alert('Une erreur est survenue !');
             }
           }
-        );      
-
-     
+        );
     }
   },
 
@@ -232,15 +230,37 @@ const task = {
 
     taskElement.classList.remove('task--archive');
     taskElement.classList.add('task--todo');
+
   },
 
   handleDeleteTask: function (evt) {
 
     const taskDeleteButton = evt.currentTarget;
     const taskElement = taskDeleteButton.closest('.task');
+    const taskId = taskElement.dataset.id;
 
-    const allTasksElement = document.querySelector('.tasks');
-    allTasksElement.removeChild(taskElement);
+    const httpHeaders = new Headers();
+    httpHeaders.append("Content-Type", "application/json");
+
+    const fetchOptions = {
+      method: 'DELETE',
+      mode: 'cors',
+      cache: 'no-cache',
+      headers: httpHeaders,
+    };
+
+    fetch(app.apiRootUrl + '/tasks/' + taskId, fetchOptions)
+      .then(
+        function (response) {
+          if (response.status == 204) {
+            const allTasksElement = document.querySelector('.tasks');
+            allTasksElement.removeChild(taskElement);
+            console.log('La tâche est supprimée !');
+          } else {
+            alert('Une erreur est survenue !');
+          }
+        }
+      );
   },
 
   createNewTask: function (newTaskId, newTaskName, newTaskCategory, newTaskStatus = 1, newTaskCompletion = 0) {
