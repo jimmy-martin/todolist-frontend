@@ -16,7 +16,5 @@ const filters = {
         } else {
             tasksList.hideArchivedTasks();
         }
-
-        filters.showArchivedTask = !filters.showArchivedTask;
     }
 }

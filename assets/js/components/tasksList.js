@@ -57,6 +57,8 @@ const tasksList = {
         task.style.display = 'block';
       }
     }
+
+    filters.showArchivedTask = false;
   },
 
   showArchivedTasks: function () {
@@ -72,5 +74,7 @@ const tasksList = {
         task.style.display = 'block';
       }
     }
+
+    filters.showArchivedTask = true;
   }
 };

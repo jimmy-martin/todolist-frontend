@@ -214,6 +214,7 @@ const task = {
             if (response.status == 200) {
               taskElement.classList.remove('task--todo', 'task--complete');
               taskElement.classList.add('task--archive');
+              tasksList.hideArchivedTasks();
               console.log('La tâche est archivée !');
             } else {
               alert('Une erreur est survenue !');
@@ -227,10 +228,36 @@ const task = {
 
     const taskDesarchiveButton = evt.currentTarget;
     const taskElement = taskDesarchiveButton.closest('.task');
+    const taskId = taskElement.dataset.id;
 
-    taskElement.classList.remove('task--archive');
-    taskElement.classList.add('task--todo');
+    const data = {
+      status: 1
+    }
 
+    const httpHeaders = new Headers();
+    httpHeaders.append("Content-Type", "application/json");
+
+    const fetchOptions = {
+      method: 'PATCH',
+      mode: 'cors',
+      cache: 'no-cache',
+      headers: httpHeaders,
+      body: JSON.stringify(data)
+    };
+
+    fetch(app.apiRootUrl + '/tasks/' + taskId, fetchOptions)
+      .then(
+        function (response) {
+          if (response.status == 200) {
+            taskElement.classList.remove('task--archive');
+            taskElement.classList.add('task--todo');
+            tasksList.showArchivedTasks();
+            console.log('La tâche est désarchivée !');
+          } else {
+            alert('Une erreur est survenue !');
+          }
+        }
+      );
   },
 
   handleDeleteTask: function (evt) {
