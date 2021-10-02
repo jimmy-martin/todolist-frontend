@@ -37,13 +37,44 @@ const tasksList = {
       .then(function (tasks) {
 
         for (let apiTask of tasks) {
-
           task.createNewTask(apiTask.id, apiTask.title, apiTask.category.name, apiTask.status, apiTask.completion);
-
         }
+        tasksList.hideArchivedTasks();
 
       });
+  },
 
+  hideArchivedTasks: function () {
+    const allTasksElement = document.querySelectorAll('.tasks .task');
+
+    for (const task of allTasksElement) {
+      // console.log(task);
+      if (task.classList.contains('task--archive')) {
+        task.style.display = 'none';
+      }
+
+      if (!task.classList.contains('task--archive')) {
+        task.style.display = 'block';
+      }
+    }
+
+    filters.showArchivedTask = false;
+  },
+
+  showArchivedTasks: function () {
+    const allTasksElement = document.querySelectorAll('.tasks .task');
+
+    for (const task of allTasksElement) {
+      // console.log(task);
+      if (!task.classList.contains('task--archive')) {
+        task.style.display = 'none';
+      }
+
+      if (task.classList.contains('task--archive')) {
+        task.style.display = 'block';
+      }
+    }
+
+    filters.showArchivedTask = true;
   }
-
 };

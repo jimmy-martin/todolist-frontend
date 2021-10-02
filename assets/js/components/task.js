@@ -63,17 +63,46 @@ const task = {
   handleValidateNewTaskTitle: function (evt) {
     const taskElementInput = evt.currentTarget;
 
+    const taskElement = taskElementInput.closest('.task');
+    const taskId = taskElement.dataset.id;
+
+
     // on recupere la nouvelle valeur de la tache
     const newTaskTitle = taskElementInput.value;
 
-    // je recupere le paragraphe qui se trouve juste au dessus de mon input dans mon HTML
-    // previousElementSibling me retourne l'element du DOM precedent mon element courant
-    const taskTitleElement = taskElementInput.previousElementSibling;
-    taskTitleElement.textContent = newTaskTitle;
+    const data = {
+      title: newTaskTitle
+    }
 
-    // enfin je retir la classe task--edit
-    const taskElement = taskElementInput.closest('.task');
-    taskElement.classList.remove('task--edit');
+    const httpHeaders = new Headers();
+    httpHeaders.append("Content-Type", "application/json");
+
+    const fetchOptions = {
+      method: 'PATCH',
+      mode: 'cors',
+      cache: 'no-cache',
+      headers: httpHeaders,
+      body: JSON.stringify(data)
+    };
+
+    fetch(app.apiRootUrl + '/tasks/' + taskId, fetchOptions)
+      .then(
+        function (response) {
+          if (response.status == 200) {
+            // je recupere le paragraphe qui se trouve juste au dessus de mon input dans mon HTML
+            // previousElementSibling me retourne l'element du DOM precedent mon element courant
+            const taskTitleElement = taskElementInput.previousElementSibling;
+            taskTitleElement.textContent = newTaskTitle;
+
+            // enfin je retire la classe task--edit
+            const taskElement = taskElementInput.closest('.task');
+            taskElement.classList.remove('task--edit');
+            console.log('Nom de la tâche modifié !');
+          } else {
+            alert('Une erreur est survenue !');
+          }
+        }
+      );
   },
 
   handleValideNewTaskTitleOnEnterKey: function (evt) {
@@ -112,6 +141,7 @@ const task = {
           if (response.status == 200) {
             taskElement.classList.remove('task--todo');
             taskElement.classList.add('task--complete');
+            console.log('Tâche complète !');
           } else {
             alert('Une erreur est survenue !');
           }
@@ -123,9 +153,37 @@ const task = {
 
     const taskIncompleteButton = evt.currentTarget;
     const taskElement = taskIncompleteButton.closest('.task');
+    const taskId = taskElement.dataset.id;
 
-    taskElement.classList.remove('task--complete');
-    taskElement.classList.add('task--todo');
+    const data = {
+      completion: 0
+    }
+    // On prépare les entêtes HTTP (headers) de la requête
+    // afin de spécifier que les données sont en JSON
+    const httpHeaders = new Headers();
+    httpHeaders.append("Content-Type", "application/json");
+
+    const fetchOptions = {
+      method: 'PATCH',
+      mode: 'cors',
+      cache: 'no-cache',
+      // On ajoute les headers dans les options
+      headers: httpHeaders,
+      // On ajoute les données, encodées en JSON, dans le corps de la requête
+      body: JSON.stringify(data)
+    };
+
+    fetch(app.apiRootUrl + '/tasks/' + taskId, fetchOptions)
+      .then(
+        function (response) {
+          if (response.status == 200) {
+            taskElement.classList.remove('task--complete');
+            taskElement.classList.add('task--todo');
+          } else {
+            alert('Une erreur est survenue !');
+          }
+        }
+      );
   },
 
   handleArchiveTask: function (evt) {
@@ -133,9 +191,36 @@ const task = {
 
       const taskArchiveButton = evt.currentTarget;
       const taskElement = taskArchiveButton.closest('.task');
+      const taskId = taskElement.dataset.id;
 
-      taskElement.classList.remove('task--todo', 'task--complete');
-      taskElement.classList.add('task--archive');
+      const data = {
+        status: 2
+      }
+
+      const httpHeaders = new Headers();
+      httpHeaders.append("Content-Type", "application/json");
+
+      const fetchOptions = {
+        method: 'PATCH',
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: httpHeaders,
+        body: JSON.stringify(data)
+      };
+
+      fetch(app.apiRootUrl + '/tasks/' + taskId, fetchOptions)
+        .then(
+          function (response) {
+            if (response.status == 200) {
+              taskElement.classList.remove('task--todo', 'task--complete');
+              taskElement.classList.add('task--archive');
+              tasksList.hideArchivedTasks();
+              console.log('La tâche est archivée !');
+            } else {
+              alert('Une erreur est survenue !');
+            }
+          }
+        );
     }
   },
 
@@ -143,18 +228,66 @@ const task = {
 
     const taskDesarchiveButton = evt.currentTarget;
     const taskElement = taskDesarchiveButton.closest('.task');
+    const taskId = taskElement.dataset.id;
 
-    taskElement.classList.remove('task--archive');
-    taskElement.classList.add('task--todo');
+    const data = {
+      status: 1
+    }
+
+    const httpHeaders = new Headers();
+    httpHeaders.append("Content-Type", "application/json");
+
+    const fetchOptions = {
+      method: 'PATCH',
+      mode: 'cors',
+      cache: 'no-cache',
+      headers: httpHeaders,
+      body: JSON.stringify(data)
+    };
+
+    fetch(app.apiRootUrl + '/tasks/' + taskId, fetchOptions)
+      .then(
+        function (response) {
+          if (response.status == 200) {
+            taskElement.classList.remove('task--archive');
+            taskElement.classList.add('task--todo');
+            tasksList.showArchivedTasks();
+            console.log('La tâche est désarchivée !');
+          } else {
+            alert('Une erreur est survenue !');
+          }
+        }
+      );
   },
 
   handleDeleteTask: function (evt) {
 
     const taskDeleteButton = evt.currentTarget;
     const taskElement = taskDeleteButton.closest('.task');
+    const taskId = taskElement.dataset.id;
 
-    const allTasksElement = document.querySelector('.tasks');
-    allTasksElement.removeChild(taskElement);
+    const httpHeaders = new Headers();
+    httpHeaders.append("Content-Type", "application/json");
+
+    const fetchOptions = {
+      method: 'DELETE',
+      mode: 'cors',
+      cache: 'no-cache',
+      headers: httpHeaders,
+    };
+
+    fetch(app.apiRootUrl + '/tasks/' + taskId, fetchOptions)
+      .then(
+        function (response) {
+          if (response.status == 204) {
+            const allTasksElement = document.querySelector('.tasks');
+            allTasksElement.removeChild(taskElement);
+            console.log('La tâche est supprimée !');
+          } else {
+            alert('Une erreur est survenue !');
+          }
+        }
+      );
   },
 
   createNewTask: function (newTaskId, newTaskName, newTaskCategory, newTaskStatus = 1, newTaskCompletion = 0) {
