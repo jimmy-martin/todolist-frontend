@@ -139,14 +139,18 @@ const task = {
       .then(
         function (response) {
           if (response.status == 200) {
-            taskElement.classList.remove('task--todo');
-            taskElement.classList.add('task--complete');
-            console.log('Tâche complète !');
+            return response.json();
           } else {
             alert('Une erreur est survenue !');
           }
-        }
-      );
+        })
+      .then(function (apiTask) {
+        // console.log(apiTask);
+        taskElement.classList.remove('task--todo');
+        taskElement.classList.add('task--complete');
+        taskElement.querySelector('.progress-bar__level').style.width = apiTask.completion + '%';
+        console.log('Tâche complète !');
+      });
   },
 
   handleIncompleteTask: function (evt) {
@@ -177,13 +181,18 @@ const task = {
       .then(
         function (response) {
           if (response.status == 200) {
-            taskElement.classList.remove('task--complete');
-            taskElement.classList.add('task--todo');
+            return response.json();
           } else {
             alert('Une erreur est survenue !');
           }
         }
-      );
+      )
+      .then(function(apiTask){
+        taskElement.classList.remove('task--complete');
+        taskElement.classList.add('task--todo');
+        taskElement.querySelector('.progress-bar__level').style.width = apiTask.completion + '%';
+        console.log('Tache incomplète !');
+      });
   },
 
   handleArchiveTask: function (evt) {
