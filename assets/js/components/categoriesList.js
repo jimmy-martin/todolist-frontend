@@ -24,13 +24,13 @@ const categoriesList = {
                 return response.json();
             })
             // on recupere le resultat et on le met en parametre d'une autre fonction
-            .then(function (data) {
+            .then(function (categoriesFromApi) {
                 // console.log(data);                
 
-                const selectFilter = categoriesList.createSelect(data, 'Toutes les catégories', 'filters__choice');
+                const selectFilter = categoriesList.createSelect(categoriesFromApi, 'Toutes les catégories', 'filters__choice');
                 document.querySelector('.filters__task--category').append(selectFilter);
 
-                const selectForm = categoriesList.createSelect(data, 'Choisir une catégorie');
+                const selectForm = categoriesList.createSelect(categoriesFromApi, 'Choisir une catégorie');
                 document.querySelector('.task__category .select').append(selectForm);
 
             });
@@ -40,12 +40,12 @@ const categoriesList = {
     /**
      * Méthode permettant de créer un select
      * 
-     * @param {Array} data datas from api
+     * @param {Array} data categories from api
      * @param {String} optionLabel name of the default option
      * @param {String} selectClass class of the select
      * @returns {HTMLElement} selectElement
      */
-    createSelect: function (data, optionLabel, selectClass = '') {
+    createSelect: function (categoriesFromApi, optionLabel, selectClass = '') {
 
         const selectElement = document.createElement('select');
 
@@ -60,7 +60,7 @@ const categoriesList = {
         selectElement.append(optionDefault);
 
         // pour chaque catégorie, créer un élément <option> et l'ajouter comme enfant du <select>
-        for (let category of data) {
+        for (let category of categoriesFromApi) {
             const optionChild = document.createElement('option');
             optionChild.textContent = category.name;
             optionChild.value = category.id;
