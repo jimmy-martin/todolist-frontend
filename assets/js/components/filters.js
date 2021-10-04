@@ -11,8 +11,7 @@ const filters = {
 
     handleClickOnArchivedLink: function (evt) {
         const buttonElement = evt.currentTarget;
-        console.log(buttonElement);
-
+        // console.log(buttonElement);
         
         if (!filters.showArchivedTask) {
             tasksList.showArchivedTasks();
