@@ -14,14 +14,14 @@ const newTaskForm = {
 
     const selectElement = formElement.querySelector('.task__category select');
 
-    const todoCategory = selectElement.value;
+    const todoCategoryId = selectElement.value;
 
     // Pour recuperer le texte meme de l'option selectionnée et non plus la valeur de l'option qui se trouve dans l'attribut "value" du select
     const todoCategoryName = selectElement.options[selectElement.selectedIndex].text;
 
     const data = {
       title: todoName,
-      categoryId: todoCategory
+      categoryId: todoCategoryId
     }
 
     const httpHeaders = new Headers();
