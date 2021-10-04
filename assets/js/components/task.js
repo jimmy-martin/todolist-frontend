@@ -302,11 +302,11 @@ const task = {
   /**
    * Création d'une tâche
    * 
-   * @param {Int} newTaskId 
-   * @param {String} newTaskName 
-   * @param {String} newTaskCategory 
-   * @param {Int} newTaskStatus 
-   * @param {Int} newTaskCompletion 
+   * @param {Int} newTaskId Id de la catégorie
+   * @param {String} newTaskName Nom de la tâche
+   * @param {String} newTaskCategory Nom de la catégorie
+   * @param {Int} newTaskStatus 1 = Tâche active | 2 = Tâche archivée
+   * @param {Int} newTaskCompletion Niveau d'achèvement de la tâche
    * @returns {Boolean}
    */
   createNewTask: function (newTaskId, newTaskName, newTaskCategory, newTaskStatus = 1, newTaskCompletion = 0) {
