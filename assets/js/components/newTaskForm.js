@@ -17,7 +17,7 @@ const newTaskForm = {
     const todoCategoryId = selectElement.value;
 
     // Pour recuperer le texte meme de l'option selectionnée et non plus la valeur de l'option qui se trouve dans l'attribut "value" du select
-    const todoCategoryName = selectElement.options[selectElement.selectedIndex].text;
+    const todoCategoryName = selectElement.options[todoCategoryId].textContent;
 
     const data = {
       title: todoName,
