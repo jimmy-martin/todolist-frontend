@@ -299,6 +299,16 @@ const task = {
       );
   },
 
+  /**
+   * Création d'une tâche
+   * 
+   * @param {Int} newTaskId 
+   * @param {String} newTaskName 
+   * @param {String} newTaskCategory 
+   * @param {Int} newTaskStatus 
+   * @param {Int} newTaskCompletion 
+   * @returns {Boolean}
+   */
   createNewTask: function (newTaskId, newTaskName, newTaskCategory, newTaskStatus = 1, newTaskCompletion = 0) {
 
     if (newTaskName === '' || newTaskCategory === 'Choisir une catégorie') {
