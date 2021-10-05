@@ -55,6 +55,7 @@ const categoriesList = {
 
         const optionDefault = document.createElement('option');
         optionDefault.textContent = optionLabel;
+        optionDefault.value = 0;
 
         // On rajoute l'option par défaut à l'élement select
         selectElement.append(optionDefault);

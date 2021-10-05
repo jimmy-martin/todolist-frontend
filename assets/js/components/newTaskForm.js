@@ -19,6 +19,12 @@ const newTaskForm = {
     // Pour recuperer le texte meme de l'option selectionnée et non plus la valeur de l'option qui se trouve dans l'attribut "value" du select
     const todoCategoryName = selectElement.options[todoCategoryId].textContent;
 
+    const error = false;
+    if (todoName === '' || todoCategoryName === 'Choisir une catégorie') {
+      window.alert('Au moins un des champs n\'est pas valide. Pensez à renseigner un nom ET une catégorie.');
+      error = true;
+    }
+
     const data = {
       title: todoName,
       categoryId: todoCategoryId
@@ -47,15 +53,15 @@ const newTaskForm = {
         })
       .then(function (apiTask) {
         // console.log(apiTask);
-        const result = task.createNewTask(apiTask.id, apiTask.title, todoCategoryName);
+        task.createNewTask(apiTask.id, apiTask.title, todoCategoryName);
 
-        if (result) {
-          // je vide mon input
-          formElement.querySelector('.task__title-field').value = '';
-        }
-        formElement.querySelector('.task__title-field').focus();
       });
 
+    if (error) {
+      // je vide mon input
+      formElement.querySelector('.task__title-field').value = '';
+    }
+    formElement.querySelector('.task__title-field').focus();
   }
 
 };

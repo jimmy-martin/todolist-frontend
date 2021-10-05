@@ -32,7 +32,7 @@ const filters = {
             const allTasksFilter = document.querySelector('.filters__task--completion').firstElementChild;
             filters.isActive(allTasksFilter);
         } else {
-            buttonElement.textContent = 'Voir les archives';            
+            buttonElement.textContent = 'Voir les archives';
             tasksList.hideArchivedTasks();
 
             // si je ne suis plus dans mes archives alors je dois afficher les boutons et le formulaire

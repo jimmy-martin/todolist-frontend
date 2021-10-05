@@ -187,7 +187,7 @@ const task = {
           }
         }
       )
-      .then(function(apiTask){
+      .then(function (apiTask) {
         taskElement.classList.remove('task--complete');
         taskElement.classList.add('task--todo');
         taskElement.querySelector('.progress-bar__level').style.width = apiTask.completion + '%';
@@ -311,38 +311,31 @@ const task = {
    */
   createNewTask: function (newTaskId, newTaskName, newTaskCategory, newTaskStatus = 1, newTaskCompletion = 0) {
 
-    if (newTaskName === '' || newTaskCategory === 'Choisir une catégorie') {
-      window.alert('Au moins un des champs n\'est pas valide. Pensez à renseigner un nom ET une catégorie.');
-    } else {
-      const taskTemplateElement = document.getElementById('taskTemplate').content.cloneNode(true);
+    const taskTemplateElement = document.getElementById('taskTemplate').content.cloneNode(true);
 
-      const taskElement = taskTemplateElement.querySelector('.task');
-      taskElement.dataset.id = newTaskId;
+    const taskElement = taskTemplateElement.querySelector('.task');
+    taskElement.dataset.id = newTaskId;
 
-      taskElement.querySelector('.task__title-label').textContent = newTaskName;
-      taskElement.querySelector('.task__title-field').value = newTaskName;
-      taskElement.querySelector('.task__category p').textContent = newTaskCategory;
-      taskElement.dataset.category = newTaskCategory;
-      taskElement.querySelector('.progress-bar__level').style.width = newTaskCompletion + '%';
+    taskElement.querySelector('.task__title-label').textContent = newTaskName;
+    taskElement.querySelector('.task__title-field').value = newTaskName;
+    taskElement.querySelector('.task__category p').textContent = newTaskCategory;
+    taskElement.dataset.category = newTaskCategory;
+    taskElement.querySelector('.progress-bar__level').style.width = newTaskCompletion + '%';
 
-      if (newTaskStatus == 2) {
-        taskElement.classList.add('task--archive');
-      } else if (newTaskCompletion == 100) {
-        taskElement.classList.add('task--complete');
-      }
-
-      // Pour que ma tache puisse bénéficer des ecouteurs d'evenements nécessaires
-      // je fais appel à la fonction bindSingleTaskEvents pour qu'il puisse bénéficier des ecouteurs d'evenements des taches
-      //! JavaScript nous impose de le faire avant d'ajouter notre noeud au DOM, sinon il ne reconnait plus l'element auquel on souhaite ajouter des eventListener
-      task.bindSingleTaskEvents(taskElement);
-
-      // plus tard on utilisera une methode de taskList pour ajouter la nouvelle tache
-      // tasksList.addNewTask(taskElement)
-      document.querySelector('.tasks').prepend(taskElement);
-
-      return true;
+    if (newTaskStatus == 2) {
+      taskElement.classList.add('task--archive');
+    } else if (newTaskCompletion == 100) {
+      taskElement.classList.add('task--complete');
     }
-    return false;
+
+    // Pour que ma tache puisse bénéficer des ecouteurs d'evenements nécessaires
+    // je fais appel à la fonction bindSingleTaskEvents pour qu'il puisse bénéficier des ecouteurs d'evenements des taches
+    //! JavaScript nous impose de le faire avant d'ajouter notre noeud au DOM, sinon il ne reconnait plus l'element auquel on souhaite ajouter des eventListener
+    task.bindSingleTaskEvents(taskElement);
+
+    // plus tard on utilisera une methode de taskList pour ajouter la nouvelle tache
+    // tasksList.addNewTask(taskElement)
+    document.querySelector('.tasks').prepend(taskElement);
   }
 
 };
