@@ -7,6 +7,11 @@ const filters = {
 
         const archivedLinkElement = document.querySelector('.filters__task--archived .filters__choice');
         archivedLinkElement.addEventListener('click', filters.handleClickOnArchivedLink);
+
+        const filtersChoiceButtonsElement = document.querySelectorAll('.filters__task--completion .button');
+        for (const button of filtersChoiceButtonsElement) {
+            button.addEventListener('click', filters.handleClickOnFiltersButton);
+        }
     },
 
     handleClickOnArchivedLink: function (evt) {
@@ -26,5 +31,20 @@ const filters = {
         } else {
             buttonElement.textContent = 'Ne plus voir les archives';
         }
+    },
+
+    handleClickOnFiltersButton: function (evt) {
+        const buttonElement = evt.currentTarget;
+
+        filters.isActive(buttonElement);
+    },
+
+    isActive: function (buttonElement) {
+
+        const filtersButtons = document.querySelectorAll('.filters__choice');
+        for (const button of filtersButtons) {
+            button.classList.remove('is-info', 'is-selected');
+        }
+        buttonElement.classList.add('is-info', 'is-selected');
     }
 }
