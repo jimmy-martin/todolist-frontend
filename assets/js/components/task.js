@@ -70,39 +70,50 @@ const task = {
     // on recupere la nouvelle valeur de la tache
     const newTaskTitle = taskElementInput.value;
 
-    const data = {
-      title: newTaskTitle
+    let error = false;
+
+    if (newTaskTitle === '') {
+      window.alert('Champ vide !');
+      error = true;
+      taskElementInput.value = taskElementInput.defaultValue;
     }
 
-    const httpHeaders = new Headers();
-    httpHeaders.append("Content-Type", "application/json");
+    if (!error) {
+      const data = {
+        title: newTaskTitle
+      }
 
-    const fetchOptions = {
-      method: 'PATCH',
-      mode: 'cors',
-      cache: 'no-cache',
-      headers: httpHeaders,
-      body: JSON.stringify(data)
-    };
+      const httpHeaders = new Headers();
+      httpHeaders.append("Content-Type", "application/json");
 
-    fetch(app.apiRootUrl + '/tasks/' + taskId, fetchOptions)
-      .then(
-        function (response) {
-          if (response.status == 200) {
-            // je recupere le paragraphe qui se trouve juste au dessus de mon input dans mon HTML
-            // previousElementSibling me retourne l'element du DOM precedent mon element courant
-            const taskTitleElement = taskElementInput.previousElementSibling;
-            taskTitleElement.textContent = newTaskTitle;
+      const fetchOptions = {
+        method: 'PATCH',
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: httpHeaders,
+        body: JSON.stringify(data)
+      };
 
-            // enfin je retire la classe task--edit
-            const taskElement = taskElementInput.closest('.task');
-            taskElement.classList.remove('task--edit');
-            console.log('Nom de la tâche modifié !');
-          } else {
-            alert('Une erreur est survenue !');
+      fetch(app.apiRootUrl + '/tasks/' + taskId, fetchOptions)
+        .then(
+          function (response) {
+            if (response.status == 200) {
+              // je recupere le paragraphe qui se trouve juste au dessus de mon input dans mon HTML
+              // previousElementSibling me retourne l'element du DOM precedent mon element courant
+              const taskTitleElement = taskElementInput.previousElementSibling;
+              taskTitleElement.textContent = newTaskTitle;
+
+              // enfin je retire la classe task--edit
+              const taskElement = taskElementInput.closest('.task');
+              taskElement.classList.remove('task--edit');
+              console.log('Nom de la tâche modifié !');
+            } else {
+              alert('Une erreur est survenue !');
+            }
           }
-        }
-      );
+        );
+    }
+
   },
 
   handleValideNewTaskTitleOnEnterKey: function (evt) {
@@ -150,8 +161,8 @@ const task = {
         taskElement.classList.add('task--complete');
         taskElement.querySelector('.progress-bar__level').style.width = apiTask.completion + '%';
         console.log('Tâche complète !');
-        
-        if(document.querySelector('.filters__task--completion').firstElementChild.classList.contains('is-selected')){
+
+        if (document.querySelector('.filters__task--completion').firstElementChild.classList.contains('is-selected')) {
           tasksList.showAllTasks();
         } else {
           tasksList.showIncompleteTasks();
@@ -198,8 +209,8 @@ const task = {
         taskElement.classList.add('task--todo');
         taskElement.querySelector('.progress-bar__level').style.width = apiTask.completion + '%';
         console.log('Tache incomplète !');
-        
-        if(document.querySelector('.filters__task--completion').firstElementChild.classList.contains('is-selected')){
+
+        if (document.querySelector('.filters__task--completion').firstElementChild.classList.contains('is-selected')) {
           tasksList.showAllTasks();
         } else {
           tasksList.showCompleteTasks();
@@ -329,7 +340,7 @@ const task = {
     taskElement.dataset.id = newTaskId;
 
     taskElement.querySelector('.task__title-label').textContent = newTaskName;
-    taskElement.querySelector('.task__title-field').value = newTaskName;
+    taskElement.querySelector('.task__title-field').defaultValue = newTaskName;
     taskElement.querySelector('.task__category p').textContent = newTaskCategory;
     taskElement.dataset.category = newTaskCategory;
     taskElement.querySelector('.progress-bar__level').style.width = newTaskCompletion + '%';
