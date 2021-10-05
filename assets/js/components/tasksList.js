@@ -52,10 +52,6 @@ const tasksList = {
       if (task.classList.contains('task--archive')) {
         task.style.display = 'none';
       }
-
-      if (!task.classList.contains('task--archive')) {
-        task.style.display = 'block';
-      }
     }
 
     filters.showArchivedTask = false;
@@ -68,10 +64,6 @@ const tasksList = {
       // console.log(task);
       if (!task.classList.contains('task--archive')) {
         task.style.display = 'none';
-      }
-
-      if (task.classList.contains('task--archive')) {
-        task.style.display = 'block';
       }
     }
 
