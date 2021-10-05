@@ -1,6 +1,8 @@
 const filters = {
 
     showArchivedTask: false,
+    showCompleteTasks: false,
+    showIncompleteTasks: false,
 
     init: function () {
         // TODO : coder les ecouteurs d'evenements
@@ -19,17 +21,23 @@ const filters = {
         // console.log(buttonElement);
 
         if (!filters.showArchivedTask) {
-            tasksList.showArchivedTasks();
-        } else {
-            tasksList.hideArchivedTasks();
-        }
-
-        // je change le texte de mon lien en fonction
-        // de si j'ai déja cliqué sur mon lien ou pas
-        if (filters.showArchivedTask === false) {
-            buttonElement.textContent = 'Voir les archives';
-        } else {
             buttonElement.textContent = 'Ne plus voir les archives';
+            tasksList.showArchivedTasks();
+
+            // si je suis dans mes archives alors je dois cacher les boutons et le formulaire
+            filters.toggleFiltersButtons();
+            filters.toggleForm();
+
+            // Pour éviter les bugs de DOM, je choisis de revenir à la page qui affiche tous les filtres
+            const allTasksFilter = document.querySelector('.filters__task--completion').firstElementChild;
+            filters.isActive(allTasksFilter);
+        } else {
+            buttonElement.textContent = 'Voir les archives';            
+            tasksList.hideArchivedTasks();
+
+            // si je ne suis plus dans mes archives alors je dois afficher les boutons et le formulaire
+            filters.toggleFiltersButtons();
+            filters.toggleForm();
         }
     },
 
@@ -61,5 +69,25 @@ const filters = {
             button.classList.remove('is-info', 'is-selected');
         }
         buttonElement.classList.add('is-info', 'is-selected');
+    },
+
+    toggleFiltersButtons: function () {
+        const allFiltersButtons = document.querySelector('.filters__task--completion')
+        // console.log(allFiltersButtons);
+        if (filters.showArchivedTask) {
+            allFiltersButtons.style.display = 'none';
+        } else {
+            allFiltersButtons.style.display = 'block';
+        }
+    },
+
+    toggleForm: function () {
+        const formElement = document.querySelector('.task form');
+
+        if (filters.showArchivedTask) {
+            formElement.style.display = 'none';
+        } else {
+            formElement.style.display = 'block';
+        }
     }
 }

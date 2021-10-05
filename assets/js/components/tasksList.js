@@ -108,6 +108,7 @@ const tasksList = {
       }
     }
     filters.showArchivedTasks = false;
+
   },
 
   showIncompleteTasks: function () {
