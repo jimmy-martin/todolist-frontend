@@ -17,7 +17,7 @@ const filters = {
     handleClickOnArchivedLink: function (evt) {
         const buttonElement = evt.currentTarget;
         // console.log(buttonElement);
-        
+
         if (!filters.showArchivedTask) {
             tasksList.showArchivedTasks();
         } else {
@@ -26,7 +26,7 @@ const filters = {
 
         // je change le texte de mon lien en fonction
         // de si j'ai déja cliqué sur mon lien ou pas
-        if(filters.showArchivedTask === false){
+        if (filters.showArchivedTask === false) {
             buttonElement.textContent = 'Voir les archives';
         } else {
             buttonElement.textContent = 'Ne plus voir les archives';
@@ -37,6 +37,21 @@ const filters = {
         const buttonElement = evt.currentTarget;
 
         filters.isActive(buttonElement);
+
+        switch (buttonElement.textContent) {
+            case 'Complètes':
+                console.log('Affiche les tâches complètes');
+                tasksList.showCompleteTasks();
+                break;
+            case 'Incomplètes':
+                console.log('Affiche les tâches incomplètes');
+                tasksList.showIncompleteTasks();
+                break;
+            case 'Toutes':
+                console.log('Affiche toutes les tâches');
+                tasksList.showAllTasks();
+                break;
+        }
     },
 
     isActive: function (buttonElement) {

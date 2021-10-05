@@ -78,5 +78,54 @@ const tasksList = {
     filters.showArchivedTask = true;
   },
 
-  
+  showAllTasks: function () {
+    const allTasks = document.querySelectorAll('.tasks .task');
+    // console.log(allTasks);
+    for (const task of allTasks) {
+      task.style.display = 'block';
+      if (task.classList.contains('task--archive')) {
+        task.style.display = 'none';
+      }
+    }
+    filters.showArchivedTasks = false;
+  },
+
+  showCompleteTasks: function () {
+    const allTasks = document.querySelectorAll('.tasks .task');
+    // console.log(allTasks);
+
+    for (const task of allTasks) {
+      if (!task.classList.contains('task--complete')) {
+        task.style.display = 'none';
+      }
+
+      if (task.classList.contains('task--complete')) {
+        task.style.display = 'block';
+      }
+
+      if (task.classList.contains('task--archive')) {
+        task.style.display = 'none';
+      }
+    }
+    filters.showArchivedTasks = false;
+  },
+
+  showIncompleteTasks: function () {
+    const allTasks = document.querySelectorAll('.tasks .task');
+    // console.log(allTasks);
+    for (const task of allTasks) {
+      if (task.classList.contains('task--complete')) {
+        task.style.display = 'none';
+      }
+
+      if (!task.classList.contains('task--complete')) {
+        task.style.display = 'block';
+      }
+
+      if (task.classList.contains('task--archive')) {
+        task.style.display = 'none';
+      }
+    }
+    filters.showArchivedTasks = false;
+  }
 };
