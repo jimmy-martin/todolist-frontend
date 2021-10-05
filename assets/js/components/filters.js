@@ -1,8 +1,6 @@
 const filters = {
 
     showArchivedTask: false,
-    showCompleteTasks: false,
-    showIncompleteTasks: false,
 
     init: function () {
         // TODO : coder les ecouteurs d'evenements

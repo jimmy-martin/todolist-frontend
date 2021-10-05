@@ -150,6 +150,12 @@ const task = {
         taskElement.classList.add('task--complete');
         taskElement.querySelector('.progress-bar__level').style.width = apiTask.completion + '%';
         console.log('Tâche complète !');
+        
+        if(document.querySelector('.filters__task--completion').firstElementChild.classList.contains('is-selected')){
+          tasksList.showAllTasks();
+        } else {
+          tasksList.showIncompleteTasks();
+        }
       });
   },
 
@@ -192,6 +198,12 @@ const task = {
         taskElement.classList.add('task--todo');
         taskElement.querySelector('.progress-bar__level').style.width = apiTask.completion + '%';
         console.log('Tache incomplète !');
+        
+        if(document.querySelector('.filters__task--completion').firstElementChild.classList.contains('is-selected')){
+          tasksList.showAllTasks();
+        } else {
+          tasksList.showCompleteTasks();
+        }
       });
   },
 
