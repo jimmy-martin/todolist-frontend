@@ -19,49 +19,48 @@ const newTaskForm = {
     // Pour recuperer le texte meme de l'option selectionnée et non plus la valeur de l'option qui se trouve dans l'attribut "value" du select
     const todoCategoryName = selectElement.options[todoCategoryId].textContent;
 
-    const error = false;
-    if (todoName === '' || todoCategoryName === 'Choisir une catégorie') {
+    let error = false;
+    if (todoName === '' || todoCategoryId == 0) {
       window.alert('Au moins un des champs n\'est pas valide. Pensez à renseigner un nom ET une catégorie.');
       error = true;
     }
 
-    const data = {
-      title: todoName,
-      categoryId: todoCategoryId
-    }
-
-    const httpHeaders = new Headers();
-    httpHeaders.append("Content-Type", "application/json");
-
-    const fetchOptions = {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      headers: httpHeaders,
-      body: JSON.stringify(data)
-    };
-
-    fetch(app.apiRootUrl + '/tasks', fetchOptions)
-      .then(
-        function (response) {
-          if (response.status == 201) {
-            console.log('Tâche bien ajouté !')
-            return response.json();
-          } else {
-            alert('Une erreur est survenue !');
-          }
-        })
-      .then(function (apiTask) {
-        // console.log(apiTask);
-        task.createNewTask(apiTask.id, apiTask.title, todoCategoryName);
-
-      });
-
-    if (error) {
+    if (!error) {
       // je vide mon input
       formElement.querySelector('.task__title-field').value = '';
+
+      const data = {
+        title: todoName,
+        categoryId: todoCategoryId
+      }
+
+      const httpHeaders = new Headers();
+      httpHeaders.append("Content-Type", "application/json");
+
+      const fetchOptions = {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: httpHeaders,
+        body: JSON.stringify(data)
+      };
+
+      fetch(app.apiRootUrl + '/tasks', fetchOptions)
+        .then(
+          function (response) {
+            if (response.status == 201) {
+              console.log('Tâche bien ajouté !')
+              return response.json();
+            } else {
+              alert('Une erreur est survenue !');
+            }
+          })
+        .then(function (apiTask) {
+          // console.log(apiTask);
+          task.createNewTask(apiTask.id, apiTask.title, todoCategoryName);
+
+        });
     }
     formElement.querySelector('.task__title-field').focus();
   }
-
 };
